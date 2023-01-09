@@ -1,5 +1,5 @@
 img = "";
-status = "";
+dstatus = "";
 objects = [];
 
 function preload()
@@ -19,14 +19,14 @@ function draw()
 {
     image(img, 0, 0, 640, 420);
 
-    if (status != "")
+    if (dstatus != "")
     {
-        for (i=0; i< object.length; i++)
+        for (i=0; i< objects.length; i++)
         {
             document.getElementById("status").innerHTML = "Status: Object Detected";
 
             fill('#FF0000');
-            percent = floor(object[i].confidence * 100);
+            percent = floor(objects[i].confidence * 100);
             text(objects[i].label + " " + percent + "%", objects[i].x, object[i].y);
             noFill();
             stroke("FF0000");
@@ -38,7 +38,7 @@ function draw()
 function modelLoaded()
 {
     console.log("Model Loaded!");
-    status = true;
+    dstatus = true;
     objectDetector.detect(img, gotResult);
 }
 
@@ -49,6 +49,5 @@ function gotResult(error, results)
         console.log(error);
     }
     console.log(results);
-    object= results;
+    objects = results;
 }
-
